@@ -18,11 +18,15 @@ market.head()
 num_registros = len(market)
 
 registros = []
-for i in range(0, num_registros):
-    registros.append([str(market.values[i,j]) for j in range(0,20)])
+#for i in range(0, num_registros):
+#    registros.append([str(market.values[i,j]) for j in range(0,20)])
+    
+for sublist in market.values.tolist():
+  clean_sublist = [item for item in sublist if item is not np.nan]
+  registros.append(clean_sublist)
 
 
-reglas_asociciacion = apriori(registros,min_support=0.01,min_confidence=0.20,min_lift=3,min_lenght=2)
+reglas_asociciacion = apriori(registros,min_support=0.005,min_confidence=0.20,min_lift=3,min_lenght=3)
 resultado_asociciacion = list(reglas_asociciacion)
 
 resultados = []
